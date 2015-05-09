@@ -69,6 +69,8 @@ export HISTIGNORE="[   ]*:&:bg:fg:exit:ls:..:...:....:....."
 
 # Whenever displaying the prompt, write the previous line to disk
 export PROMPT_COMMAND="history -a"
+export HISTSIZE=3000
+export HISTFILESIZE=3000
 
 
 # Aliases
@@ -95,13 +97,13 @@ alias mv='mv -v'
 # Misc :)
 # alias less='less -r'                          # raw control characters
 # alias whence='type -a'                        # where, of a sort
-alias grep='grep --color'                     # show differences in colour
+alias grep='grep --color -n --with-filename'    # show differences in colour
 
 # directory definitions
-MYDIR='c:/usr'
+#MYDIR='c:/usr'
 USERNAME=naoki
 ENVFILE=.bash_profile
-PROGRAM_FILES='/cygdrive/c/Program\ Files'
+#PROGRAM_FILES='/cygdrive/c/Program\ Files'
 
 # Some shortcuts for different directory listings
 alias ls='ls -hAF --color=tty --show-control-char'                 # classify files in colour
@@ -114,20 +116,20 @@ alias l='ls -CF'                              #
 #alias ipconfig="$SYSTEM/ipconfig.exe"
 #alias ifconfig=ipconfig
 #alias start="$SYSTEM/CMD.exe /c start"
-alias start=cygstart
-alias TAIL='/bin/tail'
+#alias start=cygstart
+#alias TAIL='/bin/tail'
 #alias tree='cygtree'
 alias tree='tree -N'
-alias make='make -j4'
+#alias make='make -j4'
 #alias rebuild='/usr/bin/make clean ; /usr/bin/make'
-alias rev='head .svn/entries'
+#alias rev='head .svn/entries'
 
-alias explorer='/cygdrive/c/WINDOWS/explorer'
-alias avesta="$PROGRAM_FILES/avesta/bin/avesta.exe"
-alias open='explorer'
-alias sakura="$PROGRAM_FILES/sakura/sakura.exe"
-alias tpad="$PROGRAM_FILES/tpad090/TeraPad.exe"
-alias emedit="$PROGRAM_FILES/EmEditor/EmEditor.exe"
+#alias explorer='/cygdrive/c/WINDOWS/explorer'
+#alias avesta="$PROGRAM_FILES/avesta/bin/avesta.exe"
+#alias open='explorer'
+#alias sakura="$PROGRAM_FILES/sakura/sakura.exe"
+#alias tpad="$PROGRAM_FILES/tpad090/TeraPad.exe"
+#alias emedit="$PROGRAM_FILES/EmEditor/EmEditor.exe"
 
 alias pd=pushd
 alias bd=popd
@@ -142,12 +144,8 @@ alias rd='rmdir -v'
 # cd 
 alias ..='cd ..'
 alias ...='cd ../..'
-
-# for tools
-alias add_yymmdd='add_yymmdd.pl'
-alias add_yymmdd_hhmm='add_yymmdd_hhmm.pl'
-alias add_date='add_yymmdd'
-alias add_time='add_yymmdd_hhmm'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
 # about env file command
 alias printenv='printenv; cat $HOME/$ENVFILE'
@@ -168,12 +166,19 @@ alias installenv='source $HOME/$ENVFILE'
 #	bd
 #}
 FCEDIT='vim'
+TODAY=`date +%Y%m%d`
+function now () 
+{
+	date +%Y%m%d_%H%M
+}
 
 # console
 # #########
-PS1="[\u:\w](\!)# "
+#PS1="[\u:\w](\!)# "
+PS1='[\u@\h:\[\e[0;32m\]$(__git_ps1 "|%s|")\[\e[00m\]\w](\!)\$ '
 set -o vi
-EDITOR=vi
+export EDITOR=vim
+export GIT_EDITOR=vim
 
 # extra profile
 # ##############
